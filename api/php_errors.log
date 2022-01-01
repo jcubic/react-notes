@@ -1,0 +1,15 @@
+[31-Dec-2021 15:02:20 UTC] PHP Notice:  Undefined variable: e in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php on line 274
+[31-Dec-2021 15:02:20 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getMessage() on null in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php:274
+Stack trace:
+#0 {main}
+  thrown in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php on line 274
+[31-Dec-2021 15:02:56 UTC] PHP Notice:  Undefined variable: e in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php on line 274
+[31-Dec-2021 15:02:56 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getMessage() on null in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php:274
+Stack trace:
+#0 {main}
+  thrown in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php on line 274
+[31-Dec-2021 15:03:41 UTC] PHP Notice:  Undefined variable: e in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php on line 274
+[31-Dec-2021 15:03:41 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getMessage() on null in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php:274
+Stack trace:
+#0 {main}
+  thrown in /mnt/ssd/projects/jcubic/react-notes/react-notes/api/index.php on line 274
