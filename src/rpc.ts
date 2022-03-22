@@ -3,8 +3,6 @@ import axios from 'axios';
 
 const rpc = initRPC('/api/');
 
-export { useRPC };
-
 type RPCService = {
     [key: string]: (...args: any[]) => Promise<any>;
 };
@@ -46,9 +44,9 @@ function initRPC(uri: string) {
     });
 }
 
-function useRPC(method: string, init: any = null) {
+function useRPC<T>(method: string, init: T | null = null) {
     const [ isLoading, setLoad ] = useState(false);
-    const [ result, setResult ] = useState(init);
+    const [ result, setResult ] = useState<T | null>(init);
     const [ error, setError ] = useState(null);
 
     function call(...args: any[]) {
@@ -67,3 +65,5 @@ function useRPC(method: string, init: any = null) {
 
     return { isLoading, error, result, call };
 }
+
+export { useRPC };

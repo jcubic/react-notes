@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 
 import './App.css';
+
 import { useRPC } from './rpc';
+import { TreeView } from './componets/TreeView';
 import ErrorBoundary from './error';
 
 import { AuthContext, useAuth, setAuth } from './auth';
@@ -12,7 +14,7 @@ type LoginProps = {
 };
 
 function Login({ setAuth }: LoginProps) {
-    const { error, call, result: token, isLoading } = useRPC('login');
+    const { error, call, result: token, isLoading } = useRPC<string>('login');
     const [ username, setUserName ] = useState<string>('');
     const [ password, setPassword ] = useState<string>('');
 
@@ -46,21 +48,50 @@ function Login({ setAuth }: LoginProps) {
     );
 }
 
+interface INote {
+    id: number;
+    name: string;
+    user: string;
+    content: string;
+}
+
 function App() {
-  const { auth, setAuth } = useAuth();
+    const { auth, setAuth } = useAuth();
+    const [ note, setNote ] = useState<INote | null>(null);
+    const {
+        error,
+        call: get_notes,
+        result: notes,
+        isLoading
+    } = useRPC<INote[]>('get_notes');
 
-  if(!auth) {
-    return <Login setAuth={setAuth} />
-  }
+    useEffect(() => {
+        if (auth) {
+            get_notes(auth.token, auth.username);
+        }
+    }, [auth]);
 
-  return (
-      <AuthContext.Provider value={{ auth, setAuth }}>
-        <div className="App">
-          <p>Welcome { auth.username }</p>
-        </div>
-        <Test/>
-      </AuthContext.Provider>
-  );
+    if(!auth) {
+        return <Login setAuth={setAuth} />
+    }
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+    if (error || !notes) {
+        return <p>error</p>;
+    }
+
+    return (
+        <AuthContext.Provider value={{ auth, setAuth }}>
+          <div className="App">
+            <p>Welcome { auth.username }</p>
+            <h1>This is {note?.name}</h1>
+          </div>
+          <Test/>
+          <TreeView data={notes} onChange={note => { setNote(note) }} />
+        </AuthContext.Provider>
+    );
 }
 
 function Test() {
