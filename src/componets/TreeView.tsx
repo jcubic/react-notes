@@ -1,3 +1,5 @@
+import { tree } from './TreeView.module.css';
+
 type TreeNodeT = {
   name: string;
   id: number;
@@ -37,7 +39,7 @@ type TreeViewProps = {
 };
 const TreeView = ({ data, onChange }: TreeViewProps) => {
   return (
-    <div className="tree">
+    <div className={tree}>
       <ul>
         {data.map((node) => {
           return (
