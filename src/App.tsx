@@ -81,13 +81,7 @@ function App() {
         <textarea value={note?.content } onChange={(e) => { updateNote(e.target.value) }} />
         <FilteredTreeView className={style.sidebar}
                           data={notes}
-                          filter={(re, note) => {
-                            const match = note.name.match(re);
-                            if (match) {
-                              console.log({re, note, match});
-                            }
-                            return !!match;
-                          }}
+                          filter={(re, note) => !!note.name.match(re)}
                           onChange={note => { setNote(note) }}/>
       </div>
     </AuthContext.Provider>
