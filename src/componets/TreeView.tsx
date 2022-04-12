@@ -1,21 +1,19 @@
-import * as React from 'react';
-
 import { tree } from './TreeView.module.css';
 
-type TreeNodeT = {
+type TreeNodeT<T> = {
   name: string;
   id: number;
-  childNodes?: TreeNodeT[];
+  childNodes?: T[];
 };
 
-type TreeNodeCallback = (item: TreeNodeT) => void;
+type TreeNodeCallback<T> = (item: T) => void;
 
-type TreeNodeProps = {
-  node: TreeNodeT;
-  onChange: TreeNodeCallback;
+type TreeNodeProps<T> = {
+  node: T;
+  onChange: TreeNodeCallback<T>;
 };
 
-const TreeNode = ({ node, onChange }: TreeNodeProps) => {
+const TreeNode = <T extends TreeNodeT<T>,>({ node, onChange }: TreeNodeProps<T>) => {
   const { name, childNodes } = node;
   if (!childNodes) {
     return <span onClick={() => onChange(node)}>{name}</span>;
@@ -35,11 +33,12 @@ const TreeNode = ({ node, onChange }: TreeNodeProps) => {
     </details>
   );
 };
-type TreeViewProps = {
-  data: Array<TreeNodeT>;
-  onChange: TreeNodeCallback;
+type TreeViewProps<T> = {
+  data: Array<T>;
+  className?: string;
+  onChange: TreeNodeCallback<T>;
 };
-const TreeView = ({ data, onChange }: TreeViewProps) => {
+const TreeView = <T extends TreeNodeT<T>,>({ data, onChange }: TreeViewProps<T>) => {
   return (
     <div className={tree}>
       <ul>
