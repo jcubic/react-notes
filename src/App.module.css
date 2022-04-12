@@ -1,0 +1,25 @@
+.app {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 200px 1fr 100px;
+  grid-template-areas:
+      "header header header"
+      "sidebar content content"
+      "footer footer footer";
+  height: 100vh;
+}
+
+.app header {
+    grid-area: header;
+}
+.app textarea {
+    grid-area: content;
+}
+.sidebar {
+    grid-area: sidebar;
+}
+.app textarea, .sidebar {
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
