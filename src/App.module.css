@@ -1,14 +1,14 @@
 .app {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 200px 1fr 100px;
-  grid-template-areas:
-      "header header header"
-      "sidebar content content"
-      "footer footer footer";
-  height: 100vh;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 200px 1fr 100px;
+    grid-template-rows: 100px 1fr 20px;
+    grid-template-areas:
+        "header header header"
+        "sidebar content content"
+        "footer footer footer";
+    height: 100vh;
 }
-
 .app header {
     grid-area: header;
 }
@@ -18,8 +18,16 @@
 .sidebar {
     grid-area: sidebar;
 }
+.app footer {
+    grid-area: footer;
+}
 .app textarea, .sidebar {
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
+}
+.footer p {
+    margin: 0;
+    font-size: 14px;
+    font-family: monospace;
 }

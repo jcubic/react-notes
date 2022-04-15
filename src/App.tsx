@@ -83,6 +83,11 @@ function App() {
                           data={notes}
                           filter={(re, note) => !!note.name.match(re)}
                           onChange={note => { setNote(note) }}/>
+        <footer className={style.footer}>
+          <p>
+            Copyright (C) 2022 <a href="https://jakub.jankiewicz.org">Jakub T. Jankiewicz</a>
+          </p>
+        </footer>
       </div>
     </AuthContext.Provider>
   );
