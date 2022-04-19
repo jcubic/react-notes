@@ -16,8 +16,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/notes/" replace/>}/>
-          <Route path="/notes/" element={<Notes/>}/>
-          <Route path="/notes/:id" element={<Notes/>}/>
+          <Route path="/notes/" element={<Notes title={() => 'Notes - SNApp'}/>}/>
+          <Route path="/notes/:id" element={<Notes title={(note) => `Note: ${note.name} - SNApp`}/>}/>
         </Routes>
       </Router>
     </AuthContext.Provider>

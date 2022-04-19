@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect, useContext, FC } from 'react';
+import { useParams, NavLink } from 'react-router-dom';
 import { FilteredTreeView } from './FilteredTreeView';
 import { useSecureRPC } from '../rpc';
 
@@ -14,7 +14,11 @@ interface INote {
 import style from './Notes.module.css';
 import { AuthContext } from '../auth';
 
-const Notes = () => {
+type NotesProps = {
+    title?: (arg: INote) => string;
+}
+
+const Notes: FC<NotesProps> = ({title}) => {
   const { auth } = useContext(AuthContext);
   const { id } = useParams();
   const [ notes, setNotes ] = useState<INote[]>([]);
@@ -23,6 +27,11 @@ const Notes = () => {
   if (!auth) {
     return null;
   }
+  useEffect(() => {
+    if (note && title) {
+      document.title = title(note);
+    }
+  }, [note]);
   const {
     error,
     call: get_notes,
@@ -89,7 +98,18 @@ const Notes = () => {
       <FilteredTreeView className={style.sidebar}
                         data={notes}
                         filter={(re, note) => !!note.name.match(re)}
-                        link={(note: INote) => <Link to={`/notes/${note.id}`}>{note.name}</Link>}/>
+                        link={(note: INote) => {
+                          return <NavLink to={`/notes/${note.id}`}
+                                          className={({isActive}) => {
+                                            const classNames = [style.link];
+                                            if (isActive) {
+                                              classNames.push(style.activeLink);
+                                            }
+                                            return classNames.join(' ');
+                                          }}>
+                            {note.name}
+                          </NavLink>;
+                        }}/>
       <footer className={style.footer}>
         <p>
           Copyright (C) 2022 <a href="https://jakub.jankiewicz.org">Jakub T. Jankiewicz</a>

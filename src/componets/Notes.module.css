@@ -38,14 +38,34 @@
 }
 .sidebar {
     grid-area: sidebar;
+    padding: 5px;
 }
-.app footer {
-    grid-area: footer;
+.sidebar input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+}
+.link {
+    color: black;
+    display: block;
+    padding: 6px 0;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.activeLink {
+    color: white;
+    background: #337ab7;
 }
 .note, .sidebar {
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
+}
+.footer {
+    grid-area: footer;
 }
 .footer p {
     margin: 0;
