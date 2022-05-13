@@ -38,7 +38,9 @@ export const FilteredTreeView = <T extends TreeNodeT<T>,>({ data, link, classNam
 
   return (
     <div className={className}>
-      <input className={style.filter} onChange={e => filterNotes(e.target.value)}/>
+      <div className={style.filter}>
+        <input className={style.filter} onChange={e => filterNotes(e.target.value)}/>
+      </div>
       <TreeView data={displayList ? displayList.map(i => data[i]) : data}
                 link={link} />
     </div>

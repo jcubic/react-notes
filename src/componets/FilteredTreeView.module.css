@@ -1,4 +1,6 @@
 .filter {
     position: sticky;
+    background: white;
+    padding: var(--sidebar-padding);
     top: 0;
 }
