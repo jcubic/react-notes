@@ -13,6 +13,7 @@ class Service {
         } else {
             $this->config = null;
         }
+        $this->now = "strftime('%s','now')";
     }
 
     // -----------------------------------------------------------------------------------
@@ -28,6 +29,11 @@ class Service {
         $this->query("CREATE TABLE IF NOT EXISTS notes(id INTEGER PRIMARY KEY" .
                      " AUTOINCREMENT, name VARCHAR(255), user INTEGER, conten" .
                      "t TEXT)");
+
+        $rows = $this->query("SELECT COUNT(*) AS c FROM pragma_table_info('notes') WHERE name='access_time'");
+        if (count($rows) == 1 && $rows[0]['c'] == 0) {
+            $this->query("ALTER TABLE notes ADD access_time INT DEFAULT 0");
+        }
     }
 
     // -----------------------------------------------------------------------------------
@@ -239,7 +245,8 @@ class Service {
     // -----------------------------------------------------------------------------------
     function create_note($token, $username, $note) {
         $id = $this->get_user_id($token, $username);
-        $query = "INSERT INTO notes(user, name, content) VALUES(?, ?, ?)";
+        $query = "INSERT INTO notes(user, name, content, access_time) " .
+                 "VALUES(?, ?, ?, {$this->now})";
         return $this->query($query, array($id, $note->name, $note->content));
     }
 
@@ -255,7 +262,8 @@ class Service {
     // -----------------------------------------------------------------------------------
     function save_note($token, $username, $note) {
         $user_id = $this->get_user_id($token, $username);
-        $query = "UPDATE notes SET name = ?, content = ? WHERE id = ? AND user = ?";
+        $query = "UPDATE notes SET name = ?, content = ? access_time = {$this->now} " .
+                 "WHERE id = ? AND user = ?";
         $row_aftected = $this->query($query, array(
             $note->name,
             $note->content,
