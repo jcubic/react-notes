@@ -88,8 +88,7 @@ const Notes: FC<NotesProps> = ({title}) => {
 
   useEffect(() => {
     if (saveError) {
-      console.log(saveError);
-      toast(saveError, {
+      toast((saveError as Error).toString(), {
         position: "bottom-right",
         autoClose: 2000,
         hideProgressBar: true,
