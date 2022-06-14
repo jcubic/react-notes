@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import Notes from './componets/Notes';
-import Login from './componets/Login'
+import Notes from './pages/Notes';
+import Login from './pages/Login'
 import { useAuth, AuthContext } from './auth';
 
 function App() {

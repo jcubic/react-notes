@@ -7,7 +7,6 @@ type AuthContext = {
     setAuth: setAuth | null
 };
 
-
 interface IAuth {
     username: string | null;
     token: string | null;
